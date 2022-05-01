@@ -114,10 +114,10 @@ def pregunta_04():
     # inferior de 5 palabras. Solo deben analizarse palabras conformadas por
     # letras.
     countVectorizer = CountVectorizer(
-        analyzer=analyzer,
+        analyzer = analyzer,
         lowercase=True,
         stop_words='english',
-        token_pattern=r'(?u)\b\w\w+\b',
+        token_pattern='(?u)\b\w\w+\b',
         binary=True,
         max_df=1.0,
         min_df=5,
@@ -126,25 +126,25 @@ def pregunta_04():
     # Cree un pipeline que contenga el CountVectorizer y el modelo de BernoulliNB.
     pipeline = Pipeline(
         steps=[
-            ("countVectorizer", countVectorizer),
-            ("bernoulliNB", BernoulliNB()),
+            ('countVectorizer', countVectorizer),
+            ('bernoulliNB', BernoulliNB()),
         ],
     )
 
     # Defina un diccionario de parámetros para el GridSearchCV. Se deben
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
-    param_grid = {'bernoulliNB_alpha': np.arange(0.1, 1.1, 0.1)}
+    param_grid = {'bernoulliNB__alpha' : np.arange(0.1, 1.1, 0.1)}
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
     # parámetros. Use cv = 5, y "accuracy" como métrica de evaluación
     gridSearchCV = GridSearchCV(
-        estimator=pipeline,
-        param_grid=param_grid,
+        estimator = pipeline,
+        param_grid = param_grid,
         cv=5,
         scoring='accuracy',
-        refit=True,
-        return_train_score=True,
+        refit = True,
+        return_train_score = True,
     )
 
     # Búsque la mejor combinación de regresores
