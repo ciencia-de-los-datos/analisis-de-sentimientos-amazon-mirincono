@@ -81,7 +81,7 @@ def pregunta_03():
     stemmer = PorterStemmer()
 
     # Cree una instancia del analizador de palabras (build_analyzer)
-    analyzer = vectorizer.build_analyzer()
+    analyzer = CountVectorizer().build_analyzer()
 
     # Retorne el analizador de palabras
     return lambda x: (stemmer.stem(w) for w in analyzer(x))
@@ -117,7 +117,7 @@ def pregunta_04():
         analyzer=analyzer,
         lowercase=True,
         stop_words='english',
-        token_pattern=r'(?u)\b\w\w+\b',
+        token_pattern='(?u)\b\w\w+\b',
         binary=True,
         max_df=1,
         min_df=5,
@@ -135,7 +135,7 @@ def pregunta_04():
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
     param_grid = {
-        "BernoulliNB_alpha": np.arange_(0.1, 1.1, 0.1),
+        "BernoulliNB_alpha": np.arange(0.1, 1.1, 0.1),
     }
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
@@ -163,7 +163,7 @@ def pregunta_05():
     """
 
     # Importe confusion_matrix
-    from ____ import ____
+    from sklearn.metrics import confusion_matrix
 
     # Obtenga el pipeline de la pregunta 3.
     gridSearchCV = pregunta_04()
