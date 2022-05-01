@@ -59,7 +59,7 @@ def pregunta_02():
     x_train, x_test, y_train, y_test = train_test_split(
         x_tagged,
         y_tagged,
-        test_size=0.10,
+        test_size=0.1,
         random_state=12345,
     )
 
@@ -117,9 +117,9 @@ def pregunta_04():
         analyzer=analyzer,
         lowercase=True,
         stop_words='english',
-        token_pattern='(?u)\b\w\w+\b',
+        token_pattern=r'(?u)\b\w\w+\b',
         binary=True,
-        max_df=1,
+        max_df=1.0,
         min_df=5,
     )
 
@@ -127,16 +127,14 @@ def pregunta_04():
     pipeline = Pipeline(
         steps=[
             ("countVectorizer", countVectorizer),
-            ("BernoulliNB", BernoulliNB()),
+            ("bernoulliNB", BernoulliNB()),
         ],
     )
 
     # Defina un diccionario de parámetros para el GridSearchCV. Se deben
     # considerar 10 valores entre 0.1 y 1.0 para el parámetro alpha de
     # BernoulliNB.
-    param_grid = {
-        "BernoulliNB_alpha": np.arange(0.1, 1.1, 0.1),
-    }
+    param_grid = {'bernoulliNB_alpha': np.arange(0.1, 1.1, 0.1)}
 
     # Defina una instancia de GridSearchCV con el pipeline y el diccionario de
     # parámetros. Use cv = 5, y "accuracy" como métrica de evaluación
